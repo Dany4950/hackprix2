@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon2/pages/signup.dart';
 import 'package:hackathon2/pages/splash.dart';
 
 void main() {

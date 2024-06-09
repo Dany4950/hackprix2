@@ -207,13 +207,13 @@ class LayeredGridPage extends StatelessWidget {
               },
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.indigo,
+                  color: Colors.black,
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(4.0),
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.indigo.withOpacity(0.5),
+                      color: Colors.deepPurpleAccent.withOpacity(0.5),
                       spreadRadius: 5,
                       blurRadius: 10,
                       offset: Offset(0, 3),
@@ -260,13 +260,13 @@ class LayeredGridPage extends StatelessWidget {
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.7,
                 decoration: BoxDecoration(
-                  color: Colors.deepOrange,
+                  color: Colors.black,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(4.0),
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.deepOrange.withOpacity(0.5),
+                      color: Colors.grey.withOpacity(0.5),
                       spreadRadius: 5,
                       blurRadius: 10,
                       offset: Offset(0, 3),

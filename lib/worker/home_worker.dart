@@ -1,6 +1,9 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+// import 'package:hackathon2/pages/splash.dart';
+// import 'package:hackathon2/worker/applied.dart';
 // import 'package:hackathon2/worker/call.dart';
+// import 'package:hackathon2/worker/wallet.dart';
 
 // class Homepage_worker extends StatefulWidget {
 //   const Homepage_worker({super.key});
@@ -8,6 +11,8 @@
 //   @override
 //   State<Homepage_worker> createState() => _Homepage_workerState();
 // }
+
+// int _selectedIndex = 0;
 
 // class ListItem {
 //   final String title;
@@ -28,6 +33,11 @@
 //       title: 'Fix Plumbing',
 //       description: 'Fix the leaking pipe in the kitchen.',
 //       location: '123 Main Street, Springfield',
+//     ),
+//     ListItem(
+//       title: 'Hospital Construction ',
+//       description: '₹ 500 per day ',
+//       location: 'Lords Institute of tech.',
 //     ),
 //     ListItem(
 //       title: 'Install Lights',
@@ -120,7 +130,10 @@
 //             ),
 //             SizedBox(height: 40),
 //             TextButton(
-//               onPressed: () {},
+//               onPressed: () {
+//                 Navigator.push(
+//                     context, MaterialPageRoute(builder: (context) => Splash()));
+//               },
 //               child: Text(
 //                 "Logout",
 //                 style: TextStyle(fontSize: 23, color: Colors.black),
@@ -130,6 +143,7 @@
 //         ),
 //       ),
 //       appBar: AppBar(
+//         title: Text("Job Link"),
 //         actions: [
 //           IconButton(
 //             icon: Icon(Icons.info),
@@ -176,10 +190,12 @@
 //                         color: Colors.black,
 //                       ),
 //                       height: 200,
-//                       child: Center(
-//                         child: Text(
-//                           'Task $i',
-//                           style: TextStyle(fontSize: 30.0, color: Colors.white),
+//                       child: ClipRRect(
+//                         borderRadius: BorderRadius.circular(80),
+//                         child: Image.network(
+//                           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNKJ7kqGhesSImRmPssc3w6I6UR58y3DvH3_PoFZn0erhbqtPC5rbUSD9DFVGxx3CUuHQ&usqp=CAU',
+//                            // Replace with your image URL
+//                           fit: BoxFit.cover,
 //                         ),
 //                       ),
 //                     ),
@@ -189,44 +205,67 @@
 //             }).toList(),
 //           ),
 //           SizedBox(height: 20),
-//           // Adding ListView.builder for the list of items
+//           // Adding GridView.builder for the grid of items
 //           Expanded(
-//             child: ListView.builder(
-//               itemCount: items.length, // Number of items in the list
+//             child: GridView.builder(
+//               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+//               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//                 crossAxisCount: 2, // Number of columns
+//                 childAspectRatio:
+//                     1.0, // Adjust this to change the size of the boxes
+//                 mainAxisSpacing: 10,
+//                 crossAxisSpacing: 10,
+//               ),
+//               itemCount: items.length, // Number of items in the grid
 //               itemBuilder: (context, index) {
 //                 final item = items[index];
-//                 return Card(
-//                   margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-//                   child: ListTile(
-//                     leading: Icon(Icons.location_on, color: Colors.deepPurpleAccent),
-//                     title: Text(
-//                       item.title,
-//                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+//                 return GestureDetector(
+//                   onTap: () {
+//                     // Handle tile tap
+//                     ScaffoldMessenger.of(context).showSnackBar(
+//                       SnackBar(
+//                         content: Text('Tapped on ${item.title}'),
+//                       ),
+//                     );
+//                   },
+//                   child: Container(
+//                     decoration: BoxDecoration(
+//                       color: Colors.white,
+//                       borderRadius: BorderRadius.circular(15),
+//                       boxShadow: [
+//                         BoxShadow(
+//                           color: Colors.black26,
+//                           blurRadius: 5,
+//                           offset: Offset(2, 2),
+//                         ),
+//                       ],
 //                     ),
-//                     subtitle: Column(
+//                     padding: EdgeInsets.all(10),
+//                     child: Column(
 //                       crossAxisAlignment: CrossAxisAlignment.start,
 //                       children: [
+//                         Icon(Icons.location_on,
+//                             color: Colors.deepPurpleAccent, size: 30),
+//                         SizedBox(height: 10),
+//                         Text(
+//                           item.title,
+//                           style: TextStyle(
+//                               fontWeight: FontWeight.bold, fontSize: 16),
+//                         ),
 //                         SizedBox(height: 5),
 //                         Text(
 //                           item.description,
 //                           style: TextStyle(fontSize: 14),
+//                           maxLines: 2,
+//                           overflow: TextOverflow.ellipsis,
 //                         ),
-//                         SizedBox(height: 5),
+//                         Spacer(),
 //                         Text(
 //                           item.location,
 //                           style: TextStyle(color: Colors.grey, fontSize: 12),
 //                         ),
 //                       ],
 //                     ),
-//                     trailing: Icon(Icons.arrow_forward_ios, color: Colors.deepPurpleAccent),
-//                     onTap: () {
-//                       // Handle item tap
-//                       ScaffoldMessenger.of(context).showSnackBar(
-//                         SnackBar(
-//                           content: Text('Tapped on ${item.title}'),
-//                         ),
-//                       );
-//                     },
 //                   ),
 //                 );
 //               },
@@ -237,7 +276,28 @@
 //       bottomNavigationBar: BottomNavigationBar(
 //         selectedItemColor: Colors.deepPurple,
 //         onTap: (value) {
-//           // Handle navigation tap
+//           switch (value) {
+//             case 0:
+//               // Navigate to the Home screen
+//               Navigator.push(
+//                 context,
+//                 MaterialPageRoute(builder: (context) => Homepage_worker()),
+//               );
+//               break;
+//             case 1:
+//               // Navigate to the Wallet screen
+//               Navigator.push(
+//                 context,
+//                 MaterialPageRoute(builder: (context) => Wallet()),
+//               );
+//               break;
+//             case 2:
+//               // Navigate to the Applied screen
+//               Navigator.push(
+//                 context,
+//                 MaterialPageRoute(builder: (context) => Applied()),
+//               );
+//           }
 //           ScaffoldMessenger.of(context).showSnackBar(
 //             SnackBar(
 //               content: Text('Tapped on BottomNavigationBar item $value'),
@@ -249,12 +309,14 @@
 //           BottomNavigationBarItem(icon: Icon(Icons.wallet), label: "Wallet"),
 //           BottomNavigationBarItem(icon: Icon(Icons.work), label: "Applied"),
 //         ],
+//         currentIndex: _selectedIndex,
 //       ),
 //     );
 //   }
 // }
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:hackathon2/pages/splash.dart';
 import 'package:hackathon2/worker/applied.dart';
 import 'package:hackathon2/worker/call.dart';
 import 'package:hackathon2/worker/wallet.dart';
@@ -265,8 +327,6 @@ class Homepage_worker extends StatefulWidget {
   @override
   State<Homepage_worker> createState() => _Homepage_workerState();
 }
-
-int _selectedIndex = 0;
 
 class ListItem {
   final String title;
@@ -289,8 +349,8 @@ class _Homepage_workerState extends State<Homepage_worker> {
       location: '123 Main Street, Springfield',
     ),
     ListItem(
-      title: 'Hospital Construction ',
-      description: '₹ 500 per day ',
+      title: 'Hospital Construction',
+      description: '₹ 500 per day',
       location: 'Lords Institute of tech.',
     ),
     ListItem(
@@ -384,7 +444,10 @@ class _Homepage_workerState extends State<Homepage_worker> {
             ),
             SizedBox(height: 40),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Splash()));
+              },
               child: Text(
                 "Logout",
                 style: TextStyle(fontSize: 23, color: Colors.black),
@@ -426,7 +489,13 @@ class _Homepage_workerState extends State<Homepage_worker> {
               autoPlay: true,
               autoPlayInterval: const Duration(seconds: 4),
             ),
-            items: [1, 2, 3, 4, 5].map((i) {
+            items: [
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNKJ7kqGhesSImRmPssc3w6I6UR58y3DvH3_PoFZn0erhbqtPC5rbUSD9DFVGxx3CUuHQ&usqp=CAU',
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiXGS4CAkDKeKg7oeDlF1PhMbZMihlS7k6-lid5rqpziQHJlDnyT6Rxy357DeP-pYc4rM&usqp=CAU',
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeXNk2OiK961Kw2qG0olPMfjFY079dE-h5KN72Rywy10AS22iFkfV62gxUePZcaA49Uys&usqp=CAU',
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeV8TaLEZ7i0paz00CpZ64RCokXfOglQjVqLWyZBKvAjG3TJliANDdFuoVJLIg00SZMeA&usqp=CAU',
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNKJ7kqGhesSImRmPssc3w6I6UR58y3DvH3_PoFZn0erhbqtPC5rbUSD9DFVGxx3CUuHQ&usqp=CAU'
+            ].map((url) {
               return Builder(
                 builder: (BuildContext context) {
                   return Container(
@@ -435,17 +504,11 @@ class _Homepage_workerState extends State<Homepage_worker> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(80),
-                        color: Colors.black,
-                      ),
-                      height: 200,
-                      child: Center(
-                        child: Text(
-                          'Task $i',
-                          style: TextStyle(fontSize: 30.0, color: Colors.white),
-                        ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(80),
+                      child: Image.network(
+                        url,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   );
@@ -525,26 +588,28 @@ class _Homepage_workerState extends State<Homepage_worker> {
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.deepPurple,
         onTap: (value) {
-          switch (value) {case 0:
-        // Navigate to the Home screen
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Homepage_worker()),
-        );
-        break;
-      case 1:
-        // Navigate to the Wallet screen
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Wallet()),
-        );
-        break;
-      case 2:
-        // Navigate to the Applied screen
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Applied()),
-        );}
+          switch (value) {
+            case 0:
+              // Navigate to the Home screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Homepage_worker()),
+              );
+              break;
+            case 1:
+              // Navigate to the Wallet screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Wallet()),
+              );
+              break;
+            case 2:
+              // Navigate to the Applied screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Applied()),
+              );
+          }
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Tapped on BottomNavigationBar item $value'),
@@ -553,10 +618,11 @@ class _Homepage_workerState extends State<Homepage_worker> {
         },
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.wallet), label: "Wallet"),
-          BottomNavigationBarItem(icon: Icon(Icons.work), label: "Applied"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_balance_wallet), label: "Wallet"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.assignment_turned_in), label: "Applied Jobs"),
         ],
-        currentIndex: _selectedIndex,
       ),
     );
   }

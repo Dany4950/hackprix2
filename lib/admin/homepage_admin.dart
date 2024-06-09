@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon2/admin/createjob.dart';
+import 'package:hackathon2/pages/splash.dart';
+import 'package:hackathon2/worker/applied.dart';
+import 'package:hackathon2/worker/wallet.dart';
 
 class WorkerProfile {
   final String name;
@@ -14,8 +18,24 @@ class WorkerProfile {
   });
 }
 
+int _selectedIndex = 0;
+
 class Homepage_admin extends StatelessWidget {
   final List<WorkerProfile> workerProfiles = [
+    WorkerProfile(
+      name: 'Muqeet Don',
+      skill: 'flutter devp',
+      imageUrl:
+          'https://img.freepik.com/free-photo/medium-shot-portrait-smiling-architect-pointing-away_23-2148233756.jpg?size=626&ext=jpg&ga=GA1.1.1652741584.1717907628&semt=ais_user',
+      experience: 5,
+    ),
+    WorkerProfile(
+      name: 'Anna Babu',
+      skill: 'Electrician',
+      imageUrl:
+          'https://img.freepik.com/free-photo/medium-shot-portrait-smiling-architect-pointing-away_23-2148233756.jpg?size=626&ext=jpg&ga=GA1.1.1652741584.1717907628&semt=ais_user',
+      experience: 5,
+    ),
     WorkerProfile(
       name: 'John Babu',
       skill: 'Electrician',
@@ -50,9 +70,65 @@ class Homepage_admin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        width: 250,
+        backgroundColor: Colors.deepPurpleAccent[100],
+        child: Column(
+          children: [
+            SizedBox(height: 150),
+            Icon(Icons.construction, size: 40),
+            SizedBox(height: 80),
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                "History",
+                style: TextStyle(fontSize: 23, color: Colors.black),
+              ),
+            ),
+            SizedBox(height: 40),
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                "Applied jobs",
+                style: TextStyle(fontSize: 23, color: Colors.black),
+              ),
+            ),
+            SizedBox(height: 40),
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                "Payments",
+                style: TextStyle(fontSize: 23, color: Colors.black),
+              ),
+            ),
+            SizedBox(height: 40),
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                "Saved jobs",
+                style: TextStyle(fontSize: 23, color: Colors.black),
+              ),
+            ),
+            SizedBox(height: 40),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Splash()));
+              },
+              child: Text(
+                "Logout",
+                style: TextStyle(fontSize: 23, color: Colors.black),
+              ),
+            ),
+          ],
+        ),
+      ),
       backgroundColor: Colors.deepPurple[100],
       appBar: AppBar(
-        title: Text('Worker Profiles'),
+        title: Text(
+          'Job Link',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.grey[200],
         shadowColor: Colors.deepPurple,
         elevation: 10,
@@ -82,6 +158,44 @@ class Homepage_admin extends StatelessWidget {
             );
           },
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.deepPurple,
+        onTap: (value) {
+          switch (value) {
+            case 0:
+              // Navigate to the Home screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Homepage_admin()),
+              );
+              break;
+            case 1:
+              // Navigate to the Wallet screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Wallet()),
+              );
+              break;
+            case 2:
+              // Navigate to the Applied screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EditableListPage()),
+              );
+          }
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Tapped on BottomNavigationBar item $value'),
+            ),
+          );
+        },
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.wallet), label: "Wallet"),
+          BottomNavigationBarItem(icon: Icon(Icons.work), label: "Create Task"),
+        ],
+        currentIndex: _selectedIndex,
       ),
     );
   }

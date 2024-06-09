@@ -255,7 +255,9 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:hackathon2/worker/applied.dart';
 import 'package:hackathon2/worker/call.dart';
+import 'package:hackathon2/worker/wallet.dart';
 
 class Homepage_worker extends StatefulWidget {
   const Homepage_worker({super.key});
@@ -263,6 +265,8 @@ class Homepage_worker extends StatefulWidget {
   @override
   State<Homepage_worker> createState() => _Homepage_workerState();
 }
+
+int _selectedIndex = 0;
 
 class ListItem {
   final String title;
@@ -521,7 +525,26 @@ class _Homepage_workerState extends State<Homepage_worker> {
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.deepPurple,
         onTap: (value) {
-          // Handle navigation tap
+          switch (value) {case 0:
+        // Navigate to the Home screen
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Homepage_worker()),
+        );
+        break;
+      case 1:
+        // Navigate to the Wallet screen
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Wallet()),
+        );
+        break;
+      case 2:
+        // Navigate to the Applied screen
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Applied()),
+        );}
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Tapped on BottomNavigationBar item $value'),
@@ -533,6 +556,7 @@ class _Homepage_workerState extends State<Homepage_worker> {
           BottomNavigationBarItem(icon: Icon(Icons.wallet), label: "Wallet"),
           BottomNavigationBarItem(icon: Icon(Icons.work), label: "Applied"),
         ],
+        currentIndex: _selectedIndex,
       ),
     );
   }

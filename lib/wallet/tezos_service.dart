@@ -87,19 +87,33 @@ class _TezosPageState extends State<TezosPage> {
                   'Wallet Balance: $balance ꜩ',
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
                 ))),
+            SizedBox(
+              height: 30,
+            ),
             TextField(
               controller: addressController,
-              decoration: InputDecoration(labelText: 'Recipient Address'),
+              decoration: InputDecoration(
+                  labelText: 'Recipient Address', border: OutlineInputBorder()),
+            ),
+            SizedBox(
+              height: 20,
             ),
             TextField(
               controller: amountController,
-              decoration: InputDecoration(labelText: 'Amount (ꜩ)'),
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(), labelText: 'Amount (ꜩ)'),
               keyboardType: TextInputType.number,
             ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: _sendTezos,
               child: Text('Send Tezos'),
+            ),
+            Divider(
+              color: Colors.grey, // The color of the line
+              thickness: 1.0, // The thickness of the line
+              // indent: 10.0, // Optional: Space from the start of the line
+              // endIndent: 10.0, // Optional: Space from the end of the line
             ),
           ],
         ),
